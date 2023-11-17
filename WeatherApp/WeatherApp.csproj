@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Ressources\" />
+    <None Remove="Ressources\partially-cloudy.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Ressources\partially-cloudy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

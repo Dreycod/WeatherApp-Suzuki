@@ -21,15 +21,15 @@
         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#152951"/>
         
         <StackPanel Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center">
-            <TextBlock Foreground="White" FontSize="25" Text="Today - 64° F"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Partially Cloudy"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Precipitation: 25%"/>
+            <TextBlock Name="TB_CurrentTemperature" Foreground="White" FontSize="25" Text="Today - 64° F"/>
+            <TextBlock Name="TB_Meteo" Foreground="White" FontSize="25" Text="Partially Cloudy"/>
+            <TextBlock Name="TB_Humidite" Foreground="White" FontSize="25" Text="Precipitation: 25%"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal"
             HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Foreground="White" FontSize="25" Text="High: 66°" Margin="0,0,20,0"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Low: 43°" Margin="0,0,20,0"/>
-            <TextBlock Foreground="White" FontSize="25" Text="Feels like: 63°"/>
+            <TextBlock Name="TB_MaxTemperature" Foreground="White" FontSize="25" Text="High: 66°" Margin="0,0,20,0"/>
+            <TextBlock Name="TB_MiniTemperature" Foreground="White" FontSize="25" Text="Low: 43°" Margin="0,0,20,0"/>
+            <TextBlock Name="TB_Ressenti" Foreground="White" FontSize="25" Text="Feels like: 63°"/>
         </StackPanel>
         <Image Margin="20" Grid.Row="0" Grid.Column="0" Source="Ressources/partially-cloudy.png"/>
     </Grid>
