@@ -22,8 +22,10 @@ namespace WeatherApp
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class Clouds
+    // Classes générées à partir de https://json2csharp.com/
+        public class Clouds
     {
         public int all { get; set; }
     }
@@ -95,18 +97,20 @@ namespace WeatherApp
             WeatherAsync();
         }
 
+        // Fonction asynchrone pour mettre à jour les données météo
         public async void WeatherAsync()
         {
             Root root = await GetWeather();
 
-            TB_CurrentTemperature.Text = $"Temperature {root.main.temp.ToString()}°C";
-            TB_Humidite.Text = $"Precipitation: {root.main.humidity.ToString()}%";
-            TB_MaxTemperature.Text = $"Temperature Max: {root.main.temp_max.ToString()}°C";
-            TB_MiniTemperature.Text = $"Temperature Min: {root.main.temp_min.ToString()}°C";
-            TB_Meteo.Text = $"Meteo: {root.weather[0].description.ToString()}";
-            TB_Ressenti.Text = $"Ressenti: {root.main.feels_like.ToString()}°C";
+            TB_CurrentTemperature.Text = $"Temperature {root.main.temp}°C";
+            TB_Humidite.Text = $"Precipitation: {root.main.humidity}%";
+            TB_MaxTemperature.Text = $"Temperature Max: {root.main.temp_max}°C";
+            TB_MiniTemperature.Text = $"Temperature Min: {root.main.temp_min}°C";
+            TB_Meteo.Text = $"Meteo: {root.weather[0].description}";
+            TB_Ressenti.Text = $"Ressenti: {root.main.feels_like}°C";
         }
 
+        // Fonction asynchrone pour récupérer les données météo
         public async Task<Root> GetWeather()
         {
             HttpClient client = new HttpClient();
