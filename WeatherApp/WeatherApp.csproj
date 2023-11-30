@@ -9,11 +9,15 @@
 
   <ItemGroup>
     <None Remove="Ressources\Fonts\Dosis.ttf" />
-    <None Remove="Ressources\partially-cloudy.png" />
+    <None Remove="Ressources\Humidity.png" />
+    <None Remove="Ressources\Images\Top_BG.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Ressources\partially-cloudy.png">
+    <Content Include="Ressources\Images\Top_BG.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\Images\Humidity.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
