@@ -14,7 +14,13 @@
 
     <Window.Template>
         <ControlTemplate TargetType="{x:Type Window}">
-            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Background="White">
+            <Border BorderThickness="3" CornerRadius="10" Background="White">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="LightCyan" Offset="0"/>
+                        <GradientStop Color="LightBlue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
                 <Grid Name="Top_Bar">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -107,7 +113,11 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Name="TB_Temperature" Text="13°" FontSize="50" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,30" Style="{StaticResource TopBar_Txt}"/>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,30">
+                    <TextBlock Name="TB_Temperature" Text="13°" FontSize="50" FontWeight="Bold" Style="{StaticResource TopBar_Txt}"/>
+                    <Image Name="Today_Temperature_Icon" Source="Ressources/Images/Humidity.png" Width="50" Height="50"/>
+                </StackPanel>
+                
                 <TextBlock Grid.Column="0" Name="TB_City" Text="Paris" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,0" Style="{StaticResource TopBar_Txt}"/>
 
                 <TextBlock Grid.Column="1" Name="TB_Time" Text="12:00" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,30" Style="{StaticResource TopBar_Txt}"/>
@@ -137,6 +147,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
+                        <Border Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
                         <Grid Name="Humidity_Grid" Grid.Row="0" Grid.Column="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="0.8*"/>
@@ -197,7 +208,7 @@
                 </Border>
                 <Border Grid.Row="1" Style="{StaticResource BorderStyle}">
                     <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                             <GradientStop Color="LightBlue" Offset="0.0" />
                             <GradientStop Color="White" Offset="1.0" />
                         </LinearGradientBrush>
@@ -213,10 +224,10 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Monthly Rainfall" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="This year" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                        <TextBlock Grid.Column="0" Name="TB_RainWidth" Grid.Row="1" Text="45mm" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        <TextBlock Grid.Column="1" Name="TB_Rainfallpercentage" Grid.Row="1" Text="+17%" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Grid.Row="0" Text="Monthly Rainfall" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Name="TB_RainWidth" Grid.Row="1" Text="45mm" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="White"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Grid.Row="0" Text="This year" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Name="TB_Rainfallpercentage" Grid.Row="1" Text="+17%" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="Green"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -226,7 +237,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.4*"/>
                         <RowDefinition/>
-                        <RowDefinition Height="1.1*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <Grid Name="Buttons_Grid" Margin="40,5,40,5">
@@ -252,6 +263,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
+                        <Border Grid.Column="0" Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" HorizontalAlignment="Left"/>
+
                         <Grid Name="Day1_Grid">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -263,6 +276,9 @@
                             <Image Name="TB_Day1_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day1_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
+                        
+                        <Border Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+
                         <Grid Name="Day2_Grid" Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -274,6 +290,9 @@
                             <Image Name="TB_Day2_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day2_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
+
+                        <Border Grid.Column="1" Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+
                         <Grid Name="Day3_Grid" Grid.Column="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -285,6 +304,9 @@
                             <Image Name="TB_Day3_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day3_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
+
+                        <Border Grid.Column="2" Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+
                         <Grid Name="Day4_Grid" Grid.Column="3">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -296,6 +318,8 @@
                             <Image Name="TB_Day4_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day4_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
+                        
+                        <Border Grid.Column="4" Background="LightBlue" Width="2" CornerRadius="20" Height="70" Grid.RowSpan="2" HorizontalAlignment="Right"/>
 
                     </Grid>
                 </Grid>

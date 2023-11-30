@@ -16,6 +16,14 @@
         <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+    <Style x:Key="Bottom_Txt"  TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="Bottom_Txt2"  TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="Foreground" Value="LightBlue"/>
+    </Style>
     <Style x:Key="Icon_Img"  TargetType="Image">
         <Setter Property="Margin" Value="3"/>
     </Style>
