@@ -822,4 +822,6 @@ namespace WeatherApp
         public FcstDay3 fcst_day_3 { get; set; }
         public FcstDay4 fcst_day_4 { get; set; }
     }
+
+
 }
