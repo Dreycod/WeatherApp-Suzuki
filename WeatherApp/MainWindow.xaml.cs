@@ -32,7 +32,15 @@ namespace WeatherApp
             InitializeComponent();
         }
 
-       
+       private void TopBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
 
+        // Close the window
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

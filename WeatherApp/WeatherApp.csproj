@@ -10,13 +10,12 @@
   <ItemGroup>
     <None Remove="Ressources\Fonts\Dosis.ttf" />
     <None Remove="Ressources\Humidity.png" />
-    <None Remove="Ressources\Images\Top_BG.png" />
+    <None Remove="Ressources\Images\Top_BG\Dawn.jpg" />
+    <None Remove="Ressources\Images\Top_BG\Day.jpg" />
+    <None Remove="Ressources\Images\Top_BG\Night.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Ressources\Images\Top_BG.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Ressources\Images\Humidity.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -28,6 +27,15 @@
 
   <ItemGroup>
     <Resource Include="Ressources\Fonts\Dosis.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Dawn.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Day.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Night.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
