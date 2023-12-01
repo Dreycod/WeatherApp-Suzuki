@@ -95,7 +95,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Name="Current_Weather" Text="Current Weather" FontSize="20" Grid.ColumnSpan="3"/>
+            <TextBlock Name="TB_Greetings" Text="Welcome Mr/Miss Client" FontSize="20" Grid.ColumnSpan="7"/>
             <Button Name="Remove_City" Grid.Column="6" Content="-" HorizontalAlignment="Right"  Margin="0,0,10,0" Click="RemoveCity_Click"/>
             <Button Name="Add_City" Grid.Column="6" Content="+" HorizontalAlignment="Right" Click="AddCity_Click"/>
             <TextBox Name="AddCity_TB" Grid.Column="7" Grid.ColumnSpan="3" Margin="5"/>

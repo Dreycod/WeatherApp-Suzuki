@@ -18,6 +18,8 @@ using System.Threading; // JsonConvert
 using Newtonsoft.Json.Linq;
 using OxyPlot;
 using OxyPlot.Series;
+using System.IO;
+using System.Reflection.Metadata;
 
 
 namespace WeatherApp
@@ -28,6 +30,8 @@ namespace WeatherApp
     {
         public List<string> Cities { get; set; }
         public ComboBox City_CB { get; set; }
+        private string FavouriteURL = @"Ressources/Favourite_Villes.txt";
+
         public CityManager() {
             Cities = new List<string>();
         }
@@ -43,6 +47,16 @@ namespace WeatherApp
             Cities.Remove(city);
             City_CB.Items.Remove(city);
             City_CB.SelectedItem = "";
+            // Remove it from the file
+            string[] CitiesList = File.ReadAllLines(FavouriteURL);
+            File.WriteAllText(FavouriteURL, String.Empty);
+            foreach (string c in CitiesList)
+            {
+                if (c != city)
+                {
+                    File.AppendAllText(FavouriteURL, c + Environment.NewLine);
+                }
+            }
         }
     }
 
@@ -96,6 +110,9 @@ namespace WeatherApp
 
     public partial class MainWindow : Window
     {
+        private string FavouriteURL = @"Ressources/Favourite_Villes.txt";
+        private string Client_Info = @"Ressources/Client_Info.txt";
+
         // initialisation du gestionnaire de villes
         CityManager cityManager = new CityManager();
 
@@ -111,8 +128,25 @@ namespace WeatherApp
         // Fonction au démarrage de l'application
         public void Main()
         {
+            string[] CitiesList = File.ReadAllLines(FavouriteURL);
+            string[] ClientInfo = File.ReadAllLines(Client_Info);
+            // Read the client info, write welcome miss/mr depending on sex (homme/femme)
+            if (ClientInfo[1] == "Homme")
+            {
+                TB_Greetings.Text = $"Welcome Mr {ClientInfo[0]}, Look at the weather!";
+            }
+            else
+            {
+                TB_Greetings.Text = $"Welcome Miss {ClientInfo[0]} Look at the weather!";
+            }
             cityManager.City_CB = City_CB;
-            cityManager.AddCity("Annecy");
+
+            foreach (string city in CitiesList)
+            {
+                cityManager.AddCity(city);
+            }
+
+
         }
 
         // Fonction pour afficher les données météo
@@ -140,7 +174,6 @@ namespace WeatherApp
                 return;
             }
             // 
-            Current_Weather.Text = $"Current Weather {currentCondition.hour}";
             TB_City.Text = $"{cityInfo.name}, {cityInfo.country}";
             TB_Coordinates.Text = $"Coordinates: {cityInfo.latitude}, {cityInfo.longitude}";
             TB_Elevation.Text = $"Elevation: {cityInfo.elevation} m";

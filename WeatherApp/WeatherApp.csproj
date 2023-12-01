@@ -22,10 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Ressources\Images\Client_Info.txt">
+    <Content Include="Ressources\Client_Info.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Ressources\Images\Favourite_Villes.txt">
+    <Content Include="Ressources\Favourite_Villes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
