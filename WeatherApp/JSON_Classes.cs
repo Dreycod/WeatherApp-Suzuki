@@ -1,9 +1,20 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Net.Http; // HttpClient
+using Newtonsoft.Json;
+using System.Threading; // JsonConvert
 
 namespace WeatherApp
 {
@@ -13,12 +24,12 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public double TMP2m { get; set; }
+        public int TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
-        public double PRMSL { get; set; }
+        public int PRMSL { get; set; }
         public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
@@ -41,11 +52,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public int APCPsfc { get; set; }
+        public double APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -67,7 +78,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -93,7 +104,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -119,7 +130,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -145,10 +156,10 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
-        public int PRMSL { get; set; }
+        public double PRMSL { get; set; }
         public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
@@ -171,11 +182,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public double APCPsfc { get; set; }
+        public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -197,11 +208,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public double APCPsfc { get; set; }
+        public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -221,9 +232,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public double TMP2m { get; set; }
+        public int TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -249,7 +260,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -275,7 +286,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -299,9 +310,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public int TMP2m { get; set; }
+        public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -327,7 +338,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -353,7 +364,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -379,7 +390,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -403,9 +414,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public int TMP2m { get; set; }
+        public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public int WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -431,7 +442,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -457,7 +468,7 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -481,9 +492,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public int TMP2m { get; set; }
+        public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public int WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -509,11 +520,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public double APCPsfc { get; set; }
+        public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -535,11 +546,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public double APCPsfc { get; set; }
+        public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -561,11 +572,11 @@ namespace WeatherApp
         public string CONDITION_KEY { get; set; }
         public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public int WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
-        public double APCPsfc { get; set; }
+        public int APCPsfc { get; set; }
         public int WNDSPD10m { get; set; }
         public int WNDGUST10m { get; set; }
         public int WNDDIR10m { get; set; }
@@ -585,9 +596,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public double TMP2m { get; set; }
+        public int TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -611,9 +622,9 @@ namespace WeatherApp
         public string ICON { get; set; }
         public string CONDITION { get; set; }
         public string CONDITION_KEY { get; set; }
-        public int TMP2m { get; set; }
+        public double TMP2m { get; set; }
         public double DPT2m { get; set; }
-        public double WNDCHILL2m { get; set; }
+        public object WNDCHILL2m { get; set; }
         public object HUMIDEX { get; set; }
         public int RH2m { get; set; }
         public double PRMSL { get; set; }
@@ -738,76 +749,29 @@ namespace WeatherApp
 
     public class HourlyData
     {
-        [JsonProperty("0H00")]
         public _0H00 _0H00 { get; set; }
-
-        [JsonProperty("1H00")]
         public _1H00 _1H00 { get; set; }
-
-        [JsonProperty("2H00")]
         public _2H00 _2H00 { get; set; }
-
-        [JsonProperty("3H00")]
         public _3H00 _3H00 { get; set; }
-
-        [JsonProperty("4H00")]
         public _4H00 _4H00 { get; set; }
-
-        [JsonProperty("5H00")]
         public _5H00 _5H00 { get; set; }
-
-        [JsonProperty("6H00")]
         public _6H00 _6H00 { get; set; }
-
-        [JsonProperty("7H00")]
         public _7H00 _7H00 { get; set; }
-
-        [JsonProperty("8H00")]
         public _8H00 _8H00 { get; set; }
-
-        [JsonProperty("9H00")]
         public _9H00 _9H00 { get; set; }
-
-        [JsonProperty("10H00")]
         public _10H00 _10H00 { get; set; }
-
-        [JsonProperty("11H00")]
         public _11H00 _11H00 { get; set; }
-
-        [JsonProperty("12H00")]
         public _12H00 _12H00 { get; set; }
-
-        [JsonProperty("13H00")]
         public _13H00 _13H00 { get; set; }
-
-        [JsonProperty("14H00")]
         public _14H00 _14H00 { get; set; }
-
-        [JsonProperty("15H00")]
         public _15H00 _15H00 { get; set; }
-
-        [JsonProperty("16H00")]
         public _16H00 _16H00 { get; set; }
-
-        [JsonProperty("17H00")]
         public _17H00 _17H00 { get; set; }
-
-        [JsonProperty("18H00")]
         public _18H00 _18H00 { get; set; }
-
-        [JsonProperty("19H00")]
         public _19H00 _19H00 { get; set; }
-
-        [JsonProperty("20H00")]
         public _20H00 _20H00 { get; set; }
-
-        [JsonProperty("21H00")]
         public _21H00 _21H00 { get; set; }
-
-        [JsonProperty("22H00")]
         public _22H00 _22H00 { get; set; }
-
-        [JsonProperty("23H00")]
         public _23H00 _23H00 { get; set; }
     }
 
@@ -822,6 +786,5 @@ namespace WeatherApp
         public FcstDay3 fcst_day_3 { get; set; }
         public FcstDay4 fcst_day_4 { get; set; }
     }
-
 
 }

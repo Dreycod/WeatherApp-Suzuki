@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:WeatherApp"
         mc:Ignorable="d"
         Background="Transparent"
@@ -94,12 +95,11 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Current Weather" FontSize="20" Grid.ColumnSpan="3"/>
-            <Button Name="Add_City" Grid.Column="6" Content="+" HorizontalAlignment="Right"/>
-            <TextBox Grid.Column="7" Grid.ColumnSpan="3" Margin="5"/>
-            <ComboBox Name="City_CB" Grid.Column="10" Grid.ColumnSpan="2" Margin="5">
-                <ComboBoxItem Name="Annecy"  Content="Annecy"/>
-            </ComboBox>
+            <TextBlock Name="Current_Weather" Text="Current Weather" FontSize="20" Grid.ColumnSpan="3"/>
+            <Button Name="Remove_City" Grid.Column="6" Content="-" HorizontalAlignment="Right"  Margin="0,0,10,0" Click="RemoveCity_Click"/>
+            <Button Name="Add_City" Grid.Column="6" Content="+" HorizontalAlignment="Right" Click="AddCity_Click"/>
+            <TextBox Name="AddCity_TB" Grid.Column="7" Grid.ColumnSpan="3" Margin="5"/>
+            <ComboBox Name="City_CB" Grid.Column="10" Grid.ColumnSpan="2" Margin="5" SelectedItem="Annecy" SelectionChanged="ComboBox_SelectionChanged"/>
         </Grid>
         <Border Name="Middle_Border" Grid.Row="1" Style="{StaticResource BorderStyle}">
 
@@ -119,6 +119,9 @@
                 </StackPanel>
                 
                 <TextBlock Grid.Column="0" Name="TB_City" Text="Paris" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,0" Style="{StaticResource TopBar_Txt}"/>
+                <TextBlock Grid.Column="1" Name="TB_Conditions" Text="Condition" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,15,0" Style="{StaticResource TopBar_Txt}"/>
+                <TextBlock Grid.Column="1" Name="TB_Coordinates" Text="Coordinates: 100,100" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,15,0" Style="{StaticResource TopBar_Txt}"/>
+                <TextBlock Grid.Column="1" Name="TB_Elevation" Text="Elevation: 0" FontSize="13" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,35,15,0" Style="{StaticResource TopBar_Txt}"/>
 
                 <TextBlock Grid.Column="1" Name="TB_Time" Text="12:00" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,30" Style="{StaticResource TopBar_Txt}"/>
                 <TextBlock Grid.Column="1" Name="TB_Weekday" Text="Monday" FontSize="30" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,0" Style="{StaticResource TopBar_Txt}"/>
@@ -172,7 +175,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Image Style ="{StaticResource Icon_Img}"  Source="Ressources/Images/Humidity.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
+                            <Image Style ="{StaticResource Icon_Img}"  Source="Ressources/Images/Wind.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="Wind"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Name="TB_Wind" Text="50%"/>
                         </Grid>
@@ -186,7 +189,7 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Image Style ="{StaticResource Icon_Img}"  Source="Ressources/Images/Humidity.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
+                            <Image Style ="{StaticResource Icon_Img}"  Source="Ressources/Images/FeelsLike.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
                             <TextBlock Grid.Row="0" Grid.Column="1" Text="Feels Like"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Name="TB_FeelsLike" Text="50%"/>
                         </Grid>
@@ -200,9 +203,9 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Image Style ="{StaticResource Icon_Img}" Source="Ressources/Images/Humidity.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Pression"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Name="TB_Pression" Text="50%"/>
+                            <Image Style ="{StaticResource Icon_Img}" Source="Ressources/Images/Pressure.png" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Pressure"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Name="TB_Pressure" Text="50%"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -210,7 +213,7 @@
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                             <GradientStop Color="LightBlue" Offset="0.0" />
-                            <GradientStop Color="White" Offset="1.0" />
+                            <GradientStop Color="PaleVioletRed" Offset="1.0" />
                         </LinearGradientBrush>
                     </Border.Background>
                     
@@ -224,10 +227,10 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Grid.Row="0" Text="Monthly Rainfall" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Name="TB_RainWidth" Grid.Row="1" Text="45mm" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="White"/>
-                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Grid.Row="0" Text="This year" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Name="TB_Rainfallpercentage" Grid.Row="1" Text="+17%" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="Green"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Grid.Row="0" Text="T° Min" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt}" Grid.Column="0" Name="TB_Tmin" Grid.Row="1" Text="0°C" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="White"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Grid.Row="0" Text="T° Max" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="Green"/>
+                        <TextBlock Style="{StaticResource Bottom_Txt2}" Grid.Column="1" Name="TB_Tmax" Grid.Row="1" Text="35°C" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="Green"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -249,12 +252,11 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Grid.Row="0" Name="Temperature_Btn" Content="Temperature"/>
-                        <Button Grid.Column="1" Grid.Row="0" Name="Precipitation_Btn" Content="Precipitation"/>
-                        <Button Grid.Column="2" Grid.Row="0" Name="Wind_Btn" Content="Wind"/>
-                        <Button Grid.Column="3" Grid.Row="0" Name="FeelsLike_Btn" Content="Feels Like"/>
+                        <Button Grid.Column="0" Grid.Row="0" Name="Tmax_Btn" Content="T° Max" Click="MaxTemp_Click"/>
+                        <Button Grid.Column="1" Grid.Row="0" Name="Tmin_Btn" Content="T° Min" Click="MinTemp_Click"/>
                     </Grid>
-                    <Grid Name="Graph_Grid" Grid.Row="1" Margin="40,5,40,5">
+                    <Grid Name="Graph_Grid" Grid.Row="1" Margin="10,5,10,5">
+                        <oxy:PlotView Model="{Binding Model}" Width="Auto" Height="Auto"/>
                     </Grid>
                     <Grid Name="Days_Grid" Grid.Row="2" Margin="40,5,40,5">
                         <Grid.ColumnDefinitions>
@@ -274,7 +276,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Name="TB_Day1" Text="Monday" TextAlignment="Center"/>
-                            <Image Name="TB_Day1_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
+                            <Image Name="Day1_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day1_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
                         
@@ -288,7 +290,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Name="TB_Day2" Text="Tuesday" TextAlignment="Center"/>
-                            <Image Name="TB_Day2_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
+                            <Image Name="Day2_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day2_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
 
@@ -302,7 +304,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Name="TB_Day3" Text="Wednesday" TextAlignment="Center"/>
-                            <Image Name="TB_Day3_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
+                            <Image Name="Day3_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day3_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
 
@@ -316,7 +318,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Name="TB_Day4" Text="Thursday" TextAlignment="Center"/>
-                            <Image Name="TB_Day4_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
+                            <Image Name="Day4_Image" Grid.Row="1" Source="Ressources/Images/Humidity.png"/>
                             <TextBlock Name="TB_Day4_Details" Grid.Row="2" Text="13°" TextAlignment="Center"/>
                         </Grid>
                         
