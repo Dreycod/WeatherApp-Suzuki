@@ -16,7 +16,7 @@ using System.Net.Http; // HttpClient
 using Newtonsoft.Json;
 using System.Threading; // JsonConvert
 
-namespace WeatherApp
+namespace WeatherApp.Service
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class _0H00

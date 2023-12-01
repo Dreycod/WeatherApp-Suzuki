@@ -20,117 +20,39 @@ using OxyPlot;
 using OxyPlot.Series;
 using System.IO;
 using System.Reflection.Metadata;
-
+using WeatherApp.Service;
 
 namespace WeatherApp
 {
-
-    // Classe gestionnaire des villes pour l'affiche d'informations
-    public class CityManager
-    {
-        public List<string> Cities { get; set; }
-        public ComboBox City_CB { get; set; }
-        private string FavouriteURL = @"Ressources/Favourite_Villes.txt";
-
-        public CityManager() {
-            Cities = new List<string>();
-        }
-
-        public void AddCity(string city)
-        {
-            Cities.Add(city);
-            City_CB.Items.Add(city);
-            City_CB.SelectedItem = city;
-        }
-        public void RemoveCity(string city)
-        {
-            Cities.Remove(city);
-            City_CB.Items.Remove(city);
-            City_CB.SelectedItem = "";
-            // Remove it from the file
-            string[] CitiesList = File.ReadAllLines(FavouriteURL);
-            File.WriteAllText(FavouriteURL, String.Empty);
-            foreach (string c in CitiesList)
-            {
-                if (c != city)
-                {
-                    File.AppendAllText(FavouriteURL, c + Environment.NewLine);
-                }
-            }
-        }
-    }
-
-    // Classe pour le graphique des températures
-    public class MainViewModel
-    {
-        public MainViewModel(FcstDay0 forecastDay0, FcstDay1 forecastDay1, FcstDay2 forecastDay2, FcstDay3 forecastDay3, FcstDay4 forecastDay4, bool Max)
-        {
-            var model = new PlotModel {};
-            
-            //  Températures max et min
-            if (Max)
-            {
-                var maxTempSeries = new LineSeries
-                {
-                    Title = "Max Temperature",
-                    Color = OxyColors.Red
-                };
-
-                maxTempSeries.Points.Add(new DataPoint(0, forecastDay0.tmax));
-                maxTempSeries.Points.Add(new DataPoint(1, forecastDay1.tmax));
-                maxTempSeries.Points.Add(new DataPoint(2, forecastDay2.tmax));
-                maxTempSeries.Points.Add(new DataPoint(3, forecastDay3.tmax));
-                maxTempSeries.Points.Add(new DataPoint(4, forecastDay4.tmax));
-
-                model.Series.Add(maxTempSeries);
-            }
-            else
-            {
-
-                var minTempSeries = new LineSeries
-                {
-                    Title = "Min Temperature",
-                    Color = OxyColors.Blue
-                };
-
-                minTempSeries.Points.Add(new DataPoint(0, forecastDay0.tmin));
-                minTempSeries.Points.Add(new DataPoint(1, forecastDay1.tmin));
-                minTempSeries.Points.Add(new DataPoint(2, forecastDay2.tmin));
-                minTempSeries.Points.Add(new DataPoint(3, forecastDay3.tmin));
-                minTempSeries.Points.Add(new DataPoint(4, forecastDay4.tmin));
-
-                model.Series.Add(minTempSeries);
-            }
-          
-            this.Model = model;
-        }
-
-        public PlotModel Model { get; private set; }
-    }
-
     public partial class MainWindow : Window
     {
         private string FavouriteURL = @"Ressources/Favourite_Villes.txt";
         private string Client_Info = @"Ressources/Client_Info.txt";
 
-        // initialisation du gestionnaire de villes
-        CityManager cityManager = new CityManager();
+        Ville ville;
 
         // constructeur
         public MainWindow()
         {
             InitializeComponent();
-            Main();
+
+            ville = new Ville();
+            ville.City_CB = City_CB;
+            Main_();
             WeatherAsync();
 
         }
 
         // Fonction au démarrage de l'application
-        public void Main()
+        public void Main_()
         {
             string[] CitiesList = File.ReadAllLines(FavouriteURL);
+            foreach (string city in CitiesList)
+            {
+                ville.AjouterVille(city);
+            }
+
             string[] ClientInfo = File.ReadAllLines(Client_Info);
-            // Read the client info, write welcome miss/mr depending on sex (homme/femme)
             if (ClientInfo[1] == "Homme")
             {
                 TB_Greetings.Text = $"Welcome Mr {ClientInfo[0]}, Look at the weather!";
@@ -139,13 +61,6 @@ namespace WeatherApp
             {
                 TB_Greetings.Text = $"Welcome Miss {ClientInfo[0]} Look at the weather!";
             }
-            cityManager.City_CB = City_CB;
-
-            foreach (string city in CitiesList)
-            {
-                cityManager.AddCity(city);
-            }
-
 
         }
 
@@ -178,7 +93,6 @@ namespace WeatherApp
             TB_Coordinates.Text = $"Coordinates: {cityInfo.latitude}, {cityInfo.longitude}";
             TB_Elevation.Text = $"Elevation: {cityInfo.elevation} m";
 
-            // Affichage des données météo sur des différents emplacements
             TB_Temperature.Text = $"{currentCondition.tmp}°C";
             TB_Weekday.Text = $"{forecastDay.day_long}";
             TB_Time.Text = $"{currentCondition.hour}";
@@ -218,7 +132,7 @@ namespace WeatherApp
             {
                 img = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Ressources/Images/Top_BG/Dawn.jpg")));
             }
-            else
+            else if (hour >= 18)
             {
                 img = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Ressources/Images/Top_BG/Night.jpg")));
             }
@@ -228,7 +142,6 @@ namespace WeatherApp
 
         }
 
-        // Fonction pour récupérer les données météo
         public async Task<Root> GetWeather()
         {
             HttpClient client = new HttpClient();
@@ -240,7 +153,6 @@ namespace WeatherApp
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Convert the response to the class Root
                     var responseBody = await response.Content.ReadAsStringAsync();
                     Root root = JsonConvert.DeserializeObject<Root>(responseBody);
                     return root;
@@ -253,27 +165,24 @@ namespace WeatherApp
                 return null;
             }
         }
-        // Create a button click event where whatever is written on Add city is added to the combobox
         private void AddCity_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the city is already in the combobox
             if (City_CB.Items.Contains(AddCity_TB.Text))
             {
                 MessageBox.Show("City already in the list");
             }
             else
             {
-                cityManager.AddCity(AddCity_TB.Text);
+                ville.AjouterVille(AddCity_TB.Text);
                 AddCity_TB.Text = "";
             }
         }
 
         private void RemoveCity_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the city is already in the combobox
             if (City_CB.Items.Contains(AddCity_TB.Text))
             {
-                cityManager.RemoveCity(AddCity_TB.Text);
+                ville.SupprimerVille(AddCity_TB.Text);
                 AddCity_TB.Text = "";
             }
             else
@@ -282,7 +191,6 @@ namespace WeatherApp
             }
         }
 
-        // Create a button click event for max temperature and min temperature
         private void MaxTemp_Click(object sender, RoutedEventArgs e)
         {
             WeatherAsync(true);
@@ -295,7 +203,6 @@ namespace WeatherApp
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Handle the selection changed event
             if (City_CB.SelectedItem != null)
             {
                 WeatherAsync();
@@ -307,10 +214,14 @@ namespace WeatherApp
             DragMove();
         }
 
-        // Close the window
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ville.SaveVille();
         }
     }
 }
