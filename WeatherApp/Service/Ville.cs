@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.IO;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace WeatherApp.Service
 {
@@ -14,12 +11,26 @@ namespace WeatherApp.Service
         List<string> LsVille;
         public ComboBox City_CB { get; set; }
         string PathVille = @"Ressources/Favourite_Villes.txt";
+        // Constructeur
         public Ville()
         {
-            LsVille = GetVille();
-
+            LsVille = new List<String>();
         }
+        // Fonction au démarrage de l'application
+        public void InitializeVilles()
+        {
+            string[] CitiesList = File.ReadAllLines(PathVille);
 
+            LsVille.Clear();
+
+            foreach (string city in CitiesList)
+            {
+               if (city.Length == 0) continue;
+               AjouterVille(city);
+            }
+            City_CB.SelectedIndex = 0;
+        }
+        // Fonction pour mettre à jour la liste des villes
         public void UpdateCity_CB()
         {
             City_CB.Items.Clear();
@@ -28,33 +39,39 @@ namespace WeatherApp.Service
                 City_CB.Items.Add(city);
             }
         }
-
+        // Fonction pour ajouter une ville
         public void AjouterVille(string ville)
         {
             LsVille.Add(ville);
             UpdateCity_CB();
+            // Select the last item
+            City_CB.SelectedIndex = City_CB.Items.Count - 1;
         }
-
-        public List<string> GetVille()
+        // Fonction pour récupérer la liste des villes
+        public List<string> GetVilles()
         {
-            string[] CitiesList = File.ReadAllLines(PathVille);
-            foreach (string city in CitiesList)
-            {
-                LsVille.Add(city);
-            }
             return LsVille;
         }
-
+        // Fonction pour supprimer une ville
         public void SupprimerVille(string ville)
         {
             LsVille.Remove(ville);
             UpdateCity_CB();
-            City_CB.Text = "";
+            City_CB.SelectedIndex = 0;
         }
-
-        public void SaveVille()
+        // Fonction pour sauvegarder la liste des villes
+        public bool SaveVille()
         {
-            File.WriteAllLines(PathVille, LsVille);
+          try
+            {
+                File.WriteAllLines(PathVille, LsVille);
+                return true;
+            }
+          catch (Exception e)   
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
         }
 
     }

@@ -26,11 +26,9 @@ namespace WeatherApp
 {
     public partial class MainWindow : Window
     {
-        private string FavouriteURL = @"Ressources/Favourite_Villes.txt";
-        private string Client_Info = @"Ressources/Client_Info.txt";
-
         Ville ville;
-
+        Client client;
+        WeatherAPI weatherAPI;
         // constructeur
         public MainWindow()
         {
@@ -38,29 +36,14 @@ namespace WeatherApp
 
             ville = new Ville();
             ville.City_CB = City_CB;
-            Main_();
+            ville.InitializeVilles();
+
+            client = new Client();
+            client.TB_Greetings = TB_Greetings;
+            client.InitializeClient();
+
+            weatherAPI = new WeatherAPI();
             WeatherAsync();
-
-        }
-
-        // Fonction au démarrage de l'application
-        public void Main_()
-        {
-            string[] CitiesList = File.ReadAllLines(FavouriteURL);
-            foreach (string city in CitiesList)
-            {
-                ville.AjouterVille(city);
-            }
-
-            string[] ClientInfo = File.ReadAllLines(Client_Info);
-            if (ClientInfo[1] == "Homme")
-            {
-                TB_Greetings.Text = $"Welcome Mr {ClientInfo[0]}, Look at the weather!";
-            }
-            else
-            {
-                TB_Greetings.Text = $"Welcome Miss {ClientInfo[0]} Look at the weather!";
-            }
 
         }
 
@@ -68,12 +51,14 @@ namespace WeatherApp
         public async void WeatherAsync(bool value=true)
         {
             // Classes pour les données météo
-            Root root = await GetWeather();
+            Root root = await weatherAPI.GetWeather();
+
             if (root == null)
             {
                 MessageBox.Show("Error: root is null");
                 return;
             }
+
             CityInfo cityInfo = root.city_info;
             CurrentCondition currentCondition = root.current_condition;
             ForecastInfo forecastInfo = root.forecast_info;
@@ -86,6 +71,7 @@ namespace WeatherApp
             if (cityInfo == null || currentCondition == null || forecastInfo == null || forecastDay == null || forecastDay1 == null || forecastDay2 == null || forecastDay3 == null || forecastDay4 == null)
             {
                 MessageBox.Show("Error: one of the objects is null");
+                ville.SupprimerVille(City_CB.SelectedItem as string);
                 return;
             }
             // 
@@ -138,33 +124,11 @@ namespace WeatherApp
             }
 
             Middle_Border.Background = img;
-
-
         }
 
-        public async Task<Root> GetWeather()
-        {
-            HttpClient client = new HttpClient();
-            try
-            {
-                string city = City_CB.SelectedItem as string;
+        // Events
 
-                HttpResponseMessage response = await client.GetAsync("https://www.prevision-meteo.ch/services/json/"+city);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseBody = await response.Content.ReadAsStringAsync();
-                    Root root = JsonConvert.DeserializeObject<Root>(responseBody);
-                    return root;
-                }
-                return null;    
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return null;
-            }
-        }
+        // évenement pour ajouter une ville
         private void AddCity_Click(object sender, RoutedEventArgs e)
         {
             if (City_CB.Items.Contains(AddCity_TB.Text))
@@ -178,6 +142,7 @@ namespace WeatherApp
             }
         }
 
+        // évenement pour supprimer une ville
         private void RemoveCity_Click(object sender, RoutedEventArgs e)
         {
             if (City_CB.Items.Contains(AddCity_TB.Text))
@@ -191,16 +156,19 @@ namespace WeatherApp
             }
         }
 
+        // évenement pour afficher la température maximale
         private void MaxTemp_Click(object sender, RoutedEventArgs e)
         {
             WeatherAsync(true);
         }
 
+        // évenement pour afficher la température minimale
         private void MinTemp_Click(object sender, RoutedEventArgs e)
         {
             WeatherAsync(false);
         }
 
+        // évenement pour afficher les données météo
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (City_CB.SelectedItem != null)
@@ -209,19 +177,27 @@ namespace WeatherApp
             }
         }
 
+        // évenement pour déplacer la fenêtre
         private void TopBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
 
+        // évenement pour fermer la fenêtre
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        // évenement sauvegarder les villes
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ville.SaveVille();
+            // the program waits until the saveville() returns true
+            while (!ville.SaveVille())
+            {
+                Thread.Sleep(100);
+            }
+            
         }
     }
 }

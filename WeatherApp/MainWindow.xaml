@@ -10,7 +10,7 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         BorderBrush="Transparent"
-         
+        Closing="Window_Closing"
         Title="MainWindow" Height="500" Width="800">
 
     <Window.Template>
