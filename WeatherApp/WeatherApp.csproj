@@ -8,17 +8,62 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Ressources\partially-cloudy.png" />
+    <None Remove="Ressources\Fonts\Dosis.ttf" />
+    <None Remove="Ressources\Humidity.png" />
+    <None Remove="Ressources\Images\Client_Info.txt" />
+    <None Remove="Ressources\Images\Favourite_Villes.txt" />
+    <None Remove="Ressources\Images\FeelsLike.png" />
+    <None Remove="Ressources\Images\Humidity.png" />
+    <None Remove="Ressources\Images\Pressure.png" />
+    <None Remove="Ressources\Images\Top_BG\Dawn.jpg" />
+    <None Remove="Ressources\Images\Top_BG\Day.jpg" />
+    <None Remove="Ressources\Images\Top_BG\Night.jpg" />
+    <None Remove="Ressources\Images\Wind.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Ressources\partially-cloudy.png">
+    <Content Include="Ressources\Client_Info.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Ressources\Favourite_Villes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Ressources\Images\Pressure.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OxyPlot.Core" Version="2.1.2" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Ressources\Fonts\Dosis.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\FeelsLike.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Humidity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Dawn.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Day.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Top_BG\Night.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\Images\Wind.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

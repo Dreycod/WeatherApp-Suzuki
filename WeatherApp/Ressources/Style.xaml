@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- General Styles -->
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+    </Style>
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <!--<Style TargetType="{x:Type ComboBox}">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10">           
+                        
+                    <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+        
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Specific Styles -->
+        
+    <Style x:Key="TopBar_Txt"  TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="Bottom_Txt"  TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style x:Key="Bottom_Txt2"  TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="/Ressources/Fonts/#Dosis"/>
+        <Setter Property="Foreground" Value="LightBlue"/>
+    </Style>
+    <Style x:Key="Icon_Img"  TargetType="Image">
+        <Setter Property="Margin" Value="3"/>
+    </Style>
+
+    <Style x:Key="BorderStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#FF2D2D30"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="CornerRadius" Value="15"/>
+        <Setter Property="Margin" Value="10"/>
+
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0" Color="#FF2D2D30" Opacity="0.4" BlurRadius="10"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

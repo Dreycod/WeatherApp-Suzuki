@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WeatherApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Ressources/Style.xaml"/>
     </Application.Resources>
 </Application>
