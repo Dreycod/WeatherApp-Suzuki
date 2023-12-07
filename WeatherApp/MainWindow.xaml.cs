@@ -36,13 +36,15 @@ namespace WeatherApp
 
             ville = new Ville();
             ville.City_CB = City_CB;
-            ville.InitializeVilles();
 
             client = new Client();
             client.TB_Greetings = TB_Greetings;
-            client.InitializeClient();
 
             weatherAPI = new WeatherAPI();
+            weatherAPI.City_CB = City_CB;
+
+            ville.InitializeVilles();
+            client.InitializeClient();
             WeatherAsync();
 
         }
